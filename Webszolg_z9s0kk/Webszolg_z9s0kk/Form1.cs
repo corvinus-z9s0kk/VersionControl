@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Webszolg_z9s0kk.MnbServiceReference;
 
 namespace Webszolg_z9s0kk
 {
@@ -15,6 +16,21 @@ namespace Webszolg_z9s0kk
         public Form1()
         {
             InitializeComponent();
+            Webszolghivas();
+        }
+
+        private void Webszolghivas()
+        {
+            MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
+            GetExchangeRatesRequestBody request = new GetExchangeRatesRequestBody()
+            {
+                currencyNames = "EUR",
+                startDate = "2020-01-01",
+                endDate = "2020-06-30"
+            };
+
+            var response = mnbService.GetExchangeRates(request);
+            var result = response.GetExchangeRatesResult;
         }
     }
 }
