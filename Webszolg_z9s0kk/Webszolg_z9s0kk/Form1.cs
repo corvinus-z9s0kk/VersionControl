@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using Webszolg_z9s0kk.Entities;
 using Webszolg_z9s0kk.MnbServiceReference;
 
@@ -21,9 +22,10 @@ namespace Webszolg_z9s0kk
             InitializeComponent();
             Webszolghivas();
             dataGridView1.DataSource = Rates;
+            xmlFeldolgozas();
         }
 
-        private void Webszolghivas()
+        private string Webszolghivas()
         {
             MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
             GetExchangeRatesRequestBody request = new GetExchangeRatesRequestBody()
@@ -35,6 +37,29 @@ namespace Webszolg_z9s0kk
 
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
+            return result;
+        }
+
+        private void xmlFeldolgozas()
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(Webszolghivas());
+
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+                RateData rd = new RateData();
+
+                rd.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rd.Currency = childElement.GetAttribute("curr");
+
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0) rd.Value = value / unit;
+
+                Rates.Add(rd);
+            }
         }
     }
 }
