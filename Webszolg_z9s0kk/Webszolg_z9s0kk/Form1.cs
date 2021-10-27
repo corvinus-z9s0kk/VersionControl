@@ -7,16 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Webszolg_z9s0kk.Entities;
 using Webszolg_z9s0kk.MnbServiceReference;
 
 namespace Webszolg_z9s0kk
 {
     public partial class Form1 : Form
     {
+        BindingList<RateData> Rates = new BindingList<RateData>();
+
         public Form1()
         {
             InitializeComponent();
             Webszolghivas();
+            dataGridView1.DataSource = Rates;
         }
 
         private void Webszolghivas()
