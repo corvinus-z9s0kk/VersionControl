@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Futószalag.Entities
 {
-    class Ball : Label
+    public class Ball : Label
     {
         public Ball()
         {
@@ -23,7 +23,7 @@ namespace Futószalag.Entities
             DrawImage(e.Graphics);
         }
 
-        private void DrawImage(Graphics g)
+        protected void DrawImage(Graphics g)
         {
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }
