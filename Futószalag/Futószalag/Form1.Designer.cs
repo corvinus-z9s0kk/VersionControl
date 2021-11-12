@@ -37,6 +37,7 @@ namespace Futószalag
             // 
             // mainPanel
             // 
+            this.mainPanel.AutoSize = true;
             this.mainPanel.Location = new System.Drawing.Point(33, 40);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(704, 286);
@@ -61,6 +62,7 @@ namespace Futószalag
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
