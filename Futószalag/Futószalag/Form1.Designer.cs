@@ -37,6 +37,9 @@ namespace Futószalag
             this.ballButton = new System.Windows.Forms.Button();
             this.carButton = new System.Windows.Forms.Button();
             this.colorButton = new System.Windows.Forms.Button();
+            this.presentButton = new System.Windows.Forms.Button();
+            this.ribbonColorButton = new System.Windows.Forms.Button();
+            this.boxColorButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -62,7 +65,7 @@ namespace Futószalag
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(306, 30);
+            this.label1.Location = new System.Drawing.Point(373, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 3;
@@ -100,11 +103,48 @@ namespace Futószalag
             this.colorButton.UseVisualStyleBackColor = false;
             this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
             // 
+            // presentButton
+            // 
+            this.presentButton.Location = new System.Drawing.Point(236, 30);
+            this.presentButton.Name = "presentButton";
+            this.presentButton.Size = new System.Drawing.Size(75, 23);
+            this.presentButton.TabIndex = 7;
+            this.presentButton.Text = "PRESENT";
+            this.presentButton.UseVisualStyleBackColor = true;
+            this.presentButton.Click += new System.EventHandler(this.presentButton_Click);
+            // 
+            // ribbonColorButton
+            // 
+            this.ribbonColorButton.BackColor = System.Drawing.Color.Red;
+            this.ribbonColorButton.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ribbonColorButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ribbonColorButton.Location = new System.Drawing.Point(236, 59);
+            this.ribbonColorButton.Name = "ribbonColorButton";
+            this.ribbonColorButton.Size = new System.Drawing.Size(75, 23);
+            this.ribbonColorButton.TabIndex = 8;
+            this.ribbonColorButton.UseVisualStyleBackColor = false;
+            this.ribbonColorButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
+            // boxColorButton
+            // 
+            this.boxColorButton.BackColor = System.Drawing.Color.Red;
+            this.boxColorButton.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.boxColorButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.boxColorButton.Location = new System.Drawing.Point(236, 88);
+            this.boxColorButton.Name = "boxColorButton";
+            this.boxColorButton.Size = new System.Drawing.Size(75, 23);
+            this.boxColorButton.TabIndex = 9;
+            this.boxColorButton.UseVisualStyleBackColor = false;
+            this.boxColorButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.boxColorButton);
+            this.Controls.Add(this.ribbonColorButton);
+            this.Controls.Add(this.presentButton);
             this.Controls.Add(this.colorButton);
             this.Controls.Add(this.carButton);
             this.Controls.Add(this.ballButton);
@@ -126,6 +166,9 @@ namespace Futószalag
         private System.Windows.Forms.Button ballButton;
         private System.Windows.Forms.Button carButton;
         private System.Windows.Forms.Button colorButton;
+        private System.Windows.Forms.Button presentButton;
+        private System.Windows.Forms.Button ribbonColorButton;
+        private System.Windows.Forms.Button boxColorButton;
     }
 }
 

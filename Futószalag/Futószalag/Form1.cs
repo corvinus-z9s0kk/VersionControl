@@ -72,6 +72,15 @@ namespace Futószalag
             Factory = new CarFactory();
         }
 
+        private void presentButton_Click(object sender, EventArgs e)
+        {
+            Factory = new PresentFactory()
+            {
+                RibbonColor = ribbonColorButton.BackColor,
+                BoxColor = boxColorButton.BackColor
+            };
+        }
+
         private void DisplayNext()
         {
             if (_nextToy != null) Controls.Remove(_nextToy);
@@ -91,5 +100,7 @@ namespace Futószalag
             if (colorPicker.ShowDialog() != DialogResult.OK) return;
             button.BackColor = colorPicker.Color;
         }
+
+
     }
 }
