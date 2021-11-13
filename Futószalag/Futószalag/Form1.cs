@@ -61,7 +61,10 @@ namespace Futószalag
 
         private void ballButton_Click(object sender, EventArgs e)
         {
-            Factory = new BallFactory();
+            Factory = new BallFactory()
+            {
+                BallColor = colorButton.BackColor
+            };
         }
 
         private void carButton_Click(object sender, EventArgs e)
