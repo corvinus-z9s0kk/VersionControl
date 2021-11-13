@@ -17,11 +17,15 @@ namespace Futószalag
 
         List<Toy> _toys = new List<Toy>();
 
+        private Toy _nextToy;
         private IToyFactory _factory;
         public IToyFactory Factory
         {
             get { return _factory; }
-            set { _factory = value; }
+            set { 
+                _factory = value;
+                DisplayNext();
+            }
         }
 
         public Form1()
@@ -30,7 +34,7 @@ namespace Futószalag
             Factory = new BallFactory();
         }
 
-        private void createTimer_Tick(object sender, EventArgs e)
+        private void createTimer_Tick_1(object sender, EventArgs e)
         {
             var toy = Factory.CreateNew();
             _toys.Add(toy);
@@ -38,7 +42,7 @@ namespace Futószalag
             mainPanel.Controls.Add(toy);
         }
 
-        private void conveyorTimer_Tick(object sender, EventArgs e)
+        private void conveyorTimer_Tick_1(object sender, EventArgs e)
         {
             var maxPosition = 0;
             foreach (var toy in _toys)
@@ -55,6 +59,24 @@ namespace Futószalag
             }
         }
 
+        private void ballButton_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
+        }
 
+        private void carButton_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void DisplayNext()
+        {
+            if (_nextToy != null) Controls.Remove(_nextToy);
+            _nextToy = Factory.CreateNew();
+            _nextToy.Top = label1.Top + label1.Height + 20;
+            _nextToy.Left = label1.Left;
+            Controls.Add(_nextToy);
+
+        }
     }
 }
