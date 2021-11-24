@@ -30,5 +30,27 @@ namespace UnitTestExample.Test
 
             }
         }
+
+        [Test,
+        TestCase("QWERtzuio", false),
+        TestCase("ASDFG0123", false),
+        TestCase("jhgfdsa01", false),
+        TestCase("A2sD3f", false),
+        TestCase("AbCdFg569", true)
+       ]
+        public void TestValidatePassword(string password, bool expectedResult)
+        {
+            //Arrange
+            var accountController = new AccountController();
+
+            //Act
+            var actualResult = accountController.ValidatePassword(password);
+
+            //Assert
+            Assert.AreEqual(actualResult, expectedResult);
+            {
+
+            }
+        }
     }
 }
