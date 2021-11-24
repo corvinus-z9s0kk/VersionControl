@@ -52,5 +52,23 @@ namespace UnitTestExample.Test
 
             }
         }
+
+        [Test,
+       TestCase("asd@vallalkozas.com", "A1S2d3f4G5"),
+       TestCase("vezeto@ceg.hu", "159ASDfgh")
+      ]
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            //Arrange
+            var accountController = new AccountController();
+
+            //Act
+            var actualResult = accountController.Register(email, password);
+
+            //Assert
+            Assert.AreEqual(email, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
+            Assert.AreEqual(Guid.Empty, actualResult.ID);
+        }
     }
 }
