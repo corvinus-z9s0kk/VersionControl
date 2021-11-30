@@ -10,7 +10,7 @@ namespace mikroszimulacio_z9s0kk.Entities
     {
         public int BirthYear { get; set; }
         public Gender Gender { get; set; }
-        public byte NumberOfChildren { get; set; }
+        public int NumberOfChildren { get; set; }
         public bool IsAlive { get; set; }
         public Person()
         {
