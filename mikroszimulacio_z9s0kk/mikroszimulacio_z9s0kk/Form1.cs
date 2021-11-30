@@ -31,7 +31,7 @@ namespace mikroszimulacio_z9s0kk
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
-
+                    SimStep(year, Population[i]);
                 }
 
                 int NumberOfMales = (from x in Population
@@ -42,6 +42,36 @@ namespace mikroszimulacio_z9s0kk
                                       select x).Count();
                 Console.WriteLine(
                         string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, NumberOfMales, NumberOFemales));
+            }
+        }
+
+        public void SimStep(int year, Person actualPerson)
+        {
+            if (!actualPerson.IsAlive) return;
+
+            int age = (int)(year - actualPerson.BirthYear);
+
+            var deathprob = (from x in DeathProbabilities
+                             where x.Gender == actualPerson.Gender && x.Age == age
+                             select x.P).FirstOrDefault();
+
+            if (rng.NextDouble() <= deathprob) actualPerson.IsAlive = false;
+
+            if (actualPerson.IsAlive && actualPerson.Gender == Gender.Female)
+            {
+                var birthprob = (from x in BirthProbabilities
+                                 where x.Age == age
+                                 select x.P).FirstOrDefault();
+
+                if (rng.NextDouble() <= birthprob)
+                {
+                    Person újszülött = new Person();
+                    újszülött.BirthYear = year;
+                    újszülött.Gender = (Gender)rng.Next(1,3);
+                    újszülött.NumberOfChildren = 0;
+                    újszülött.IsAlive = true;
+                    Population.Add(újszülött);
+                }
             }
         }
 
