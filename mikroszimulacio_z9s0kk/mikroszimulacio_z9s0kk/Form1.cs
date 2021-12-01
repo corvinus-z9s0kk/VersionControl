@@ -18,16 +18,24 @@ namespace mikroszimulacio_z9s0kk
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
         Random rng = new Random(726);
+        List<int> males = new List<int>();
+        List<int> females = new List<int>();
 
         public Form1()
         {
             InitializeComponent();
-
-            Population = GetPopulation(@"C:/Temp/nép.csv");
             BirthProbabilities = GetBirthProbabilities(@"C:/Temp/születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:/Temp/halál.csv");
-            dataGridView1.DataSource = DeathProbabilities;
-            for (int year = 2005;  year <= 2024; year++)
+        }
+
+        public void Simulation()
+        {
+            richTextBox1.Clear();
+            males.Clear();
+            females.Clear();
+
+            var lastyear = numericUpDown1.Value;
+            for (int year = 2005; year <= lastyear; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
@@ -37,11 +45,11 @@ namespace mikroszimulacio_z9s0kk
                 int NumberOfMales = (from x in Population
                                      where x.Gender == Gender.Male && x.IsAlive
                                      select x).Count();
-                int NumberOFemales = (from x in Population
-                                      where x.Gender == Gender.Female && x.IsAlive
-                                      select x).Count();
-                Console.WriteLine(
-                        string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, NumberOfMales, NumberOFemales));
+                int NumberOfFemales = (from x in Population
+                                       where x.Gender == Gender.Female && x.IsAlive
+                                       select x).Count();
+                males.Add(NumberOfMales);
+                females.Add(NumberOfFemales);
             }
         }
 
@@ -67,7 +75,7 @@ namespace mikroszimulacio_z9s0kk
                 {
                     Person újszülött = new Person();
                     újszülött.BirthYear = year;
-                    újszülött.Gender = (Gender)rng.Next(1,3);
+                    újszülött.Gender = (Gender)rng.Next(1, 3);
                     újszülött.NumberOfChildren = 0;
                     újszülött.IsAlive = true;
                     Population.Add(újszülött);
@@ -131,5 +139,32 @@ namespace mikroszimulacio_z9s0kk
             };
             return deathProbabilities;
         }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            Simulation();
+            DisplayResults();
+        }
+
+        private void browseButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = ofd.FileName;
+                Population = GetPopulation(textBox1.Text);
+            }
+        }
+
+        public void DisplayResults()
+        {
+            for (int i = 2005; i <= numericUpDown1.Value; i++)
+            {
+                richTextBox1.Text += "Szimulációs év: " + i.ToString() + "\n" +
+                                    "\t" + "Férfiak száma: " + males[i-2005] + "\n" +
+                                    "\t" + "Nők száma: " + females[i-2005] + "\n";
+            }
+        }
     }
 }
+
