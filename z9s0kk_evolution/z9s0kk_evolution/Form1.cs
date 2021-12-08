@@ -27,13 +27,26 @@ namespace z9s0kk_evolution
             //gc.AddPlayer();
             //gc.Start(true);
 
+            label1.Text = "1. generáció";
+            gc.GameOver += Gc_GameOver;
+
             for (int i = 0; i <= populationSize; i++)
             {
                 gc.AddPlayer(nbrOfSteps);
             }
             gc.Start();
+        }
 
+        public void Gc_GameOver(object sender)
+        {
+            generation++;
+            label1.BringToFront();
+            label1.Text = string.Format("{0}. generáció", generation);
 
+            var playerList = from p in gc.GetCurrentPlayers()
+                             orderby p.GetFitness() descending
+                             select p;
+            var topPerformers = playerList.Take(populationSize / 2).ToList();
         }
     }
 }
